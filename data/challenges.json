@@ -1,0 +1,153 @@
+{
+  "course": "EduSeed AI+X Elite20",
+  "generated_by": "C6A 挑战数据管线 v1.0（挑战目录 challenge.yaml + 平台提交记录 + 本地交付物扫描）",
+  "challenges": [
+    {
+      "id": "C1",
+      "title": "课程资料获取与翻译",
+      "platform_id": "ch-20260717031336-pxzwy0",
+      "deliverables_pattern": "README.md,*AI日志*,*AAR*,*拿来说明*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C2",
+      "title": "AI for Math 论文",
+      "platform_id": "ch-20260717031343-8ot0ji",
+      "deliverables_pattern": "paper.tex,references.bib,*AI日志*,*AAR*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C2A",
+      "title": "衡量 AGI 的认知能力",
+      "platform_id": "ch-20260717031352-tlg70p",
+      "deliverables_pattern": "*proposal*,*benchmark*,*AI日志*,*AAR*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C2G",
+      "title": "参数高尔夫——极限约束下的语言模型训练",
+      "platform_id": "ch-20260717031359-b8wyg0",
+      "deliverables_pattern": "*方案草案*,*方案设计*,*AI日志*,*AAR*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C3",
+      "title": "群内高质量参与",
+      "platform_id": "ch-20260717031407-ez6fae",
+      "deliverables_pattern": "*AI日志*,*AAR*,*反思*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C3C",
+      "title": "双人协作与技能迁移",
+      "platform_id": "ch-20260717031415-0vi5d1",
+      "deliverables_pattern": "*协作记录*,*联合成果*,*AI日志*,*AAR*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C4",
+      "title": "技能分享与传播",
+      "platform_id": "ch-20260717031424-4cdgor",
+      "deliverables_pattern": "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C4A",
+      "title": "技能提交自动评审",
+      "platform_id": "ch-20260717031432-5jvqje",
+      "deliverables_pattern": "*方案设计*,*skill-evaluator*,*评审报告*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C4B",
+      "title": "公众号文章生成技能",
+      "platform_id": "ch-20260717031440-bp05rs",
+      "deliverables_pattern": "*wechat-publisher*,*文章链接*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C4C",
+      "title": "作业自动求解与排版",
+      "platform_id": "ch-20260717031447-k82c4m",
+      "deliverables_pattern": "*方案设计*,*homework-solver*,*output*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C4D",
+      "title": "本地大模型 Agent 技能",
+      "platform_id": "ch-20260717031454-uzqs9k",
+      "deliverables_pattern": "*Agent技能*,*demo*,*AI日志*,*AAR*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C5",
+      "title": "GitHub Repository",
+      "platform_id": "ch-20260717031503-ihozqu",
+      "deliverables_pattern": "README.md,*repo链接*,*AI日志*,*拿来说明*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C5A",
+      "title": "GitHub 入门与仓库理解",
+      "platform_id": "ch-20260717031511-x5c6t1",
+      "deliverables_pattern": "*仓库分析*,README.md,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C6",
+      "title": "Web Application",
+      "platform_id": "ch-20260717031519-qqqx60",
+      "deliverables_pattern": "*app链接*,*demo*,*repo链接*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C6A",
+      "title": "提交数据仪表盘",
+      "platform_id": "ch-20260717031528-w43gy7",
+      "deliverables_pattern": "*仪表盘*,*demo*,*数据*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C7",
+      "title": "内容传播",
+      "platform_id": "ch-20260717031536-sfz852",
+      "deliverables_pattern": "*文章标题*,*数据截图*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C8",
+      "title": "Real-World Project Execution（真实项目落地）",
+      "platform_id": "ch-20260717031544-7vw0rn",
+      "deliverables_pattern": "*proposal*,*AAR_W*,*AI日志*,*拿来说明*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C9",
+      "title": "Self-Initiated Project（自驱项目）",
+      "platform_id": "ch-20260717031553-t2892g",
+      "deliverables_pattern": "*proposal*,*AAR_W*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C10",
+      "title": "Build Your Own Agent（构建你的长期智能体 / 第二大脑）",
+      "platform_id": "ch-20260717031601-4cwlrx",
+      "deliverables_pattern": "AGENT.md,*architecture*,*AAR*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "C10H",
+      "title": "安装并驾驭 Hermes Agent",
+      "platform_id": "ch-20260717031609-rnur5a",
+      "deliverables_pattern": "*安装记录*,*配置说明*,*demo*,*AI日志*",
+      "deadline": "2026-12-31T23:59"
+    },
+    {
+      "id": "T0",
+      "title": "发布流程测试（无需完成）",
+      "platform_id": null,
+      "deliverables_pattern": "",
+      "deadline": "已过期"
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite20 提交数据仪表盘</title>
+<style>
+:root{
+  --bg:#f6f8fb; --card:#fff; --ink:#1f2937; --muted:#6b7280;
+  --line:#e5e7eb; --accent:#2563eb; --ok:#16a34a; --warn:#d97706; --bad:#dc2626; --skip:#9ca3af; --info:#0891b2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+h1{font-size:24px}
+.sub{color:var(--muted);font-size:13px;margin-top:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;text-decoration:none;display:inline-block}
+button.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card .num{font-size:26px;font-weight:700}
+.card .lbl{color:var(--muted);font-size:12px}
+.card .num.ok{color:var(--ok)} .card .num.warn{color:var(--warn)} .card .num.bad{color:var(--bad)} .card .num.info{color:var(--info)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.panel h2{font-size:16px;margin-bottom:12px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:13px;background:#fff}
+.toolbar input{flex:1;min-width:180px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f1f5f9;font-weight:600;white-space:nowrap;cursor:pointer;user-select:none}
+tbody tr:hover{background:#f8fafc}
+tbody tr{cursor:pointer}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.badge.checked{background:#fff7e6;color:#b45309}
+.badge.complete,.badge.submitted{background:#e8f5ec;color:var(--ok)}
+.badge.partial{background:#fdeecf;color:var(--warn)}
+.badge.missing{background:#fde2e2;color:var(--bad)}
+.badge.skipped{background:#eee;color:var(--skip)}
+.heat{display:grid;grid-template-columns:64px repeat(var(--cols),minmax(46px,1fr));gap:4px;overflow-x:auto}
+.heat .cell{border-radius:6px;padding:6px 2px;text-align:center;font-size:12px;cursor:pointer;border:1px solid transparent}
+.heat .hdr{font-weight:600;color:var(--muted);text-align:center;align-self:center}
+.cell.checked{background:#ffedcc;color:#92400e}
+.cell.submitted{background:#d9ecff;color:#1d4ed8}
+.cell.partial{background:#fde3b4;color:#b45309}
+.cell.missing{background:#fbc9cd;color:#b91c1c}
+.cell.skipped{background:#e5e7eb;color:#6b7280}
+.cell:hover{outline:2px solid var(--accent)}
+.bar{height:10px;border-radius:6px;background:#e5e7eb;overflow:hidden;margin-top:6px}
+.bar>div{height:100%}
+.detail{display:none}
+.detail.open{display:block}
+.files{list-style:none;font-size:13px}
+.files li{padding:3px 0;border-bottom:1px dashed var(--line)}
+.files li:last-child{border:none}
+.files code{background:#f1f5f9;padding:1px 6px;border-radius:4px;font-size:12px}
+a{color:var(--accent)}
+.muted{color:var(--muted);font-size:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none}
+#toast.show{opacity:.95}
+svg text{font-family:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>📊 Elite20 提交数据仪表盘</h1>
+      <div class="sub" id="subtitle">加载中…</div>
+    </div>
+    <div class="actions">
+      <button id="btnReset" class="ghost" title="返回总览">↩ 总览</button>
+      <button id="btnExport" class="ghost">⬇ 导出 CSV</button>
+      <a class="btn" href="../ZhouYan_C6A_report.xlsx" download>⬇ Excel 报表</a>
+    </div>
+  </header>
+
+  <section class="cards" id="cards"></section>
+
+  <section class="panel" id="overviewPanel">
+    <h2>挑战 × 状态 总览（点击单元格查看详情）</h2>
+    <div class="heat" id="heatmap"></div>
+    <div class="muted" style="margin-top:8px">图例：🟡 平台校验通过 · 🔵 已提交待校验 · 🟠 部分待修 · 🔴 未提交 · ⚪ 计划不提交</div>
+  </section>
+
+  <section class="panel">
+    <h2>全部提交记录</h2>
+    <div class="toolbar">
+      <input id="search" type="text" placeholder="搜索：挑战编号 / 项目名 / 备注…">
+      <select id="filterStatus">
+        <option value="">全部状态</option>
+        <option value="checked">🔎 校验通过</option>
+        <option value="submitted">📤 已提交</option>
+        <option value="partial">⚠️ 部分待修</option>
+        <option value="missing">❌ 未提交</option>
+        <option value="skipped">⏭️ 不提交</option>
+      </select>
+      <select id="sortBy">
+        <option value="challenge">按挑战编号</option>
+        <option value="time_desc">按时间（新→旧）</option>
+        <option value="time_asc">按时间（旧→新）</option>
+        <option value="score_desc">按评分（高→低）</option>
+      </select>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="tbl">
+        <thead><tr>
+          <th data-k="challenge">挑战</th><th>项目</th><th data-k="submitted_at">提交时间</th>
+          <th data-k="status">状态</th><th data-k="score">评分</th><th>仓库</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel detail" id="detailPanel">
+    <h2 id="dTitle">详情</h2>
+    <div class="grid2">
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px">提交信息</h3>
+        <div id="dMeta" class="files"></div>
+      </div>
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px">交付文件清单</h3>
+        <ul class="files" id="dFiles"></ul>
+      </div>
+    </div>
+    <div id="dNotes" class="muted" style="margin-top:10px"></div>
+  </section>
+</div>
+<div id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+const D = window.DASHBOARD_DATA;
+const STATUS = {
+  checked:{t:"🔎 已提交·平台校验通过",cls:"checked"},
+  complete:{t:"✅ 完整",cls:"complete"},
+  submitted:{t:"📤 已提交·待校验",cls:"submitted"},
+  partial:{t:"⚠️ 部分/待修",cls:"partial"},
+  missing:{t:"❌ 未提交",cls:"missing"},
+  skipped:{t:"⏭️ 计划不提交",cls:"skipped"},
+};
+const byId = Object.fromEntries(D.challenges.map(c=>[c.id,c]));
+const subs = D.submissions.filter(s=>s.challenge!=="T0");
+const sById = Object.fromEntries(subs.map(s=>[s.challenge,s]));
+
+document.getElementById("subtitle").textContent =
+  `${D.meta.student.name}（${D.meta.student.github}）· ${D.meta.course} · 数据更新 ${D.meta.updated_at}`;
+
+// ---- 总览卡片 ----
+const st = D.stats;
+const cards = [
+  ["已完成", st.submitted, "ok", `${st.completion_rate}% 完成率`],
+  ["部分待修", st.partial, "warn", "平台退回或缺必填项"],
+  ["未提交", st.missing, "bad", "含计划不提交项"],
+  ["平均 AI 评分", st.avg_score ?? "—", "info", st.scored_count ? `${st.scored_count} 项已评分` : "暂无评分"],
+];
+document.getElementById("cards").innerHTML = cards.map(([l,n,c,s])=>
+  `<div class="card"><div class="num ${c}">${n}</div><div class="lbl">${l}</div><div class="lbl">${s}</div></div>`).join("");
+
+// ---- 热力图 ----
+const heat = document.getElementById("heatmap");
+heat.style.setProperty("--cols", D.challenges.filter(c=>c.id!=="T0").length);
+let heatHtml = '<div class="hdr"></div>';
+for(const c of D.challenges) if(c.id!=="T0") heatHtml += `<div class="hdr" title="${c.title}">${c.id}</div>`;
+const s = sById;
+for(const c of D.challenges) if(c.id!=="T0") {
+  const sub = sById[c.id];
+  heatHtml += `<div class="cell ${sub?sub.status:"missing"}" data-ch="${c.id}" title="${c.title}">${sub?(sub.status==="checked"?"🟡":sub.status==="submitted"?"🔵":sub.status==="partial"?"🟠":"⚪"):"🔴"}</div>`;
+}
+heat.innerHTML = heatHtml;
+heat.querySelectorAll(".cell").forEach(el=>el.addEventListener("click",()=>showDetail(el.dataset.ch)));
+
+// ---- 表格 ----
+function renderTable(){
+  const q = document.getElementById("search").value.toLowerCase();
+  const f = document.getElementById("filterStatus").value;
+  const sort = document.getElementById("sortBy").value;
+  let rows = subs.filter(x=>{
+    if(f && x.status!==f) return false;
+    const hay = (x.challenge+" "+(x.project_title||"")+" "+(x.notes||"")+" "+(x.github_repo||"")).toLowerCase();
+    return !q || hay.includes(q);
+  });
+  const key = {challenge:s=>s.challenge, time_desc:s=>s.submitted_at||"", time_asc:s=>s.submitted_at||"", score_desc:s=>-(s.score||0)}[sort];
+  rows.sort((a,b)=>String(key(a)).localeCompare(String(key(b))));
+  document.querySelector("#tbl tbody").innerHTML = rows.map(x=>{
+    const c = byId[x.challenge]; const stx = STATUS[x.status]||STATUS.missing;
+    return `<tr data-ch="${x.challenge}">
+      <td><b>${x.challenge}</b><div class="muted">${c?c.title:""}</div></td>
+      <td>${x.project_title||"<span class='muted'>—</span>"}</td>
+      <td>${x.submitted_at?String(x.submitted_at).slice(0,10):"<span class='muted'>—</span>"}</td>
+      <td><span class="badge ${stx.cls}">${stx.t}</span></td>
+      <td>${x.score??"<span class='muted'>—</span>"}</td>
+      <td>${x.github_repo?`<a href="${x.github_repo}" target="_blank">repo ↗</a>`:"—"}</td>
+    </tr>`;
+  }).join("");
+  document.querySelectorAll("#tbl tbody tr").forEach(tr=>tr.addEventListener("click",()=>showDetail(tr.dataset.ch)));
+}
+["search","filterStatus","sortBy"].forEach(id=>document.getElementById(id).addEventListener("input",renderTable));
+document.querySelectorAll("#tbl th[data-k]").forEach(th=>th.addEventListener("click",()=>{
+  const k = th.dataset.k; const sel = document.getElementById("sortBy");
+  if(k==="challenge") sel.value="challenge"; else if(k==="status") sel.value="challenge";
+  else if(k==="score") sel.value="score_desc"; else sel.value = sel.value==="time_desc"?"time_asc":"time_desc";
+  renderTable();
+}));
+
+// ---- 详情 ----
+function showDetail(ch){
+  const x = sById[ch]; const c = byId[ch];
+  if(!x) return;
+  const stx = STATUS[x.status]||STATUS.missing;
+  document.getElementById("dTitle").textContent = `${ch} · ${c?c.title:""}`;
+  document.getElementById("dMeta").innerHTML = [
+    ["学生", D.meta.student.name],
+    ["项目", x.project_title||"—"],
+    ["状态", `<span class="badge ${stx.cls}">${stx.t}</span>`],
+    ["提交时间", x.submitted_at||"—"],
+    ["AI 评分", x.score??"—"],
+    ["仓库", x.github_repo?`<a href="${x.github_repo}" target="_blank">${x.github_repo}</a>`:"—"],
+    ["必填交付物", c?`<code>${c.deliverables_pattern}</code>`:"—"],
+  ].map(([k,v])=>`<li><b>${k}：</b>${v}</li>`).join("");
+  document.getElementById("dFiles").innerHTML = (x.files||[]).length
+    ? x.files.map(f=>`<li><code>${f}</code></li>`).join("")
+    : "<li class='muted'>无交付文件记录</li>";
+  document.getElementById("dNotes").innerHTML = x.notes?`📝 ${x.notes}`:(x.feedback?`💬 ${x.feedback}`:"");
+  const p = document.getElementById("detailPanel");
+  p.classList.add("open"); p.scrollIntoView({behavior:"smooth"});
+}
+document.getElementById("btnReset").addEventListener("click",()=>{
+  document.getElementById("detailPanel").classList.remove("open");
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+// ---- 导出 ----
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
+document.getElementById("btnExport").addEventListener("click",()=>{
+  const head=["挑战","项目","提交时间","状态","评分","仓库","备注"];
+  const lines=[head.join(",")];
+  for(const x of subs){
+    const esc=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+    lines.push([x.challenge,x.project_title||"",x.submitted_at||"",x.status,x.score||"",x.github_repo||"",x.notes||""].map(esc).join(","));
+  }
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob(["﻿"+lines.join("\n")],{type:"text/csv"}));
+  a.download="elite20_submissions.csv"; a.click(); toast("CSV 已导出");
+});
+renderTable();
+</script>
+</body>
+</html>

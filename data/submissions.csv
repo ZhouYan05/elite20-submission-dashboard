@@ -1,0 +1,22 @@
+﻿挑战,标题,学生,提交时间,状态,评分,仓库,备注
+C1,课程资料获取与翻译,周岩,2026-09-29T11:47:18Z,checked,,https://github.com/ZhouYan05/C1_deliverable,平台校验通过，待教师评审
+C2,AI for Math 论文,周岩,2026-09-29T11:30:57Z,checked,,https://github.com/ZhouYan05/c2-ai-for-math,平台校验通过，待教师评审
+C2A,衡量 AGI 的认知能力,周岩,2026-10-04T06:21:37Z,checked,,https://github.com/ZhouYan05/c2a-agi-cognitive-benchmark,平台校验通过，待教师评审
+C2G,参数高尔夫——极限约束下的语言模型训练,周岩,2026-10-04T07:32:47Z,checked,,https://github.com/ZhouYan05/c2g-parameter-golf,平台校验通过，待教师评审
+C3,群内高质量参与,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-portfolio,本轮提交（2026-11-10）
+C3C,双人协作与技能迁移,周岩,,skipped,,,本轮计划不提交
+C4,技能分享与传播,周岩,2026-10-01T14:24:36Z,checked,,https://github.com/ZhouYan05/C4_deliverable,平台校验通过，待教师评审
+C4A,技能提交自动评审,周岩,2026-10-04T12:31:49Z,partial,,https://github.com/ZhouYan05/C4A-skill-evaluator（已删除，需补建）,平台退回 needs_revision；GitHub 仓库已删除（404），需重建后重提
+C4B,公众号文章生成技能,周岩,2026-10-04T13:07:06Z,partial,,https://github.com/ZhouYan05/C4B-wechat-publisher,平台退回 needs_revision，待补文章链接等重提
+C4C,作业自动求解与排版,周岩,2026-10-04T14:19:31Z,checked,84,https://github.com/ZhouYan05/C4C-homework-solver,AI 自动评审 84/100；平台校验通过，待教师评审
+C4D,本地大模型 Agent 技能,周岩,2026-10-05,checked,,https://github.com/ZhouYan05/c4d-local-llm-agent,已提交（工作区记录），待评审
+C5,GitHub Repository,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-aar-writer,本轮提交（2026-11-10）
+C5A,GitHub 入门与仓库理解,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/neoskills,本轮提交（2026-11-10）
+C6,Web Application,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-aar-writer,本轮提交（2026-11-10）
+C6A,提交数据仪表盘,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-submission-dashboard,本轮提交（2026-11-10）
+C7,内容传播,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-portfolio,本轮提交（2026-11-10）
+C8,Real-World Project Execution（真实项目落地）,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-portfolio,本轮提交（2026-11-10）
+C9,Self-Initiated Project（自驱项目）,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-portfolio,本轮提交（2026-11-10）
+C10,Build Your Own Agent（构建你的长期智能体 / 第二大脑）,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-portfolio,本轮提交（2026-11-10）
+C10H,安装并驾驭 Hermes Agent,周岩,2026-11-10,submitted,,https://github.com/ZhouYan05/elite20-portfolio,本轮提交（2026-11-10）
+T0,发布流程测试（无需完成）,周岩,,skipped,,,发布流程测试，平台标注无需完成
